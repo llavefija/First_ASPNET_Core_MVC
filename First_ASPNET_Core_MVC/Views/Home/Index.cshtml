@@ -1,0 +1,11 @@
+﻿@using First_ASPNET_Core_MVC.Models.ViewModels
+@model AnimalViewModel
+
+<h1>LISTA DE ANIMALES</h1>
+
+<ul>
+	@for (int i = 0; i < Model.Animales.Count; i++)
+	{
+		<li><span class="animal-id">ID: @(i+1)</span>Models.Animales</li>
+	}
+</ul>

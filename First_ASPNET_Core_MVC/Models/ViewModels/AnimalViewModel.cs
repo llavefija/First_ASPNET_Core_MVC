@@ -3,7 +3,7 @@
     public class AnimalViewModel
     {
 
-        public List<string> Animales { get; set; } = new List<string>();
+        public List<Animal> Animales { get; set; } = new List<Animal>();
 
     }
 }

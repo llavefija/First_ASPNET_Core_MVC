@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Animales.DAL;
 using First_ASPNET_Core_MVC.Models;
 using First_ASPNET_Core_MVC.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,11 @@ namespace First_ASPNET_Core_MVC.Controllers
 
         public IActionResult Index()
         {
+            AnimalDAL dal = new AnimalDAL();
+            
             AnimalViewModel viewModel = new AnimalViewModel();
+            viewModel.Animales = dal.GetAll();
+
             return View(viewModel);
         }
 

@@ -25,6 +25,18 @@ namespace First_ASPNET_Core_MVC.Controllers
             return View(viewModel);
         }
 
+        public IActionResult DetailsAction(int id)
+        {
+            // Redirigir correctamente al controlador "Animal" y a la acción "Details".
+            return RedirectToAction("Details", "Animal", new { id = id });
+        }
+
+        public IActionResult AgregarAction()
+        {
+            // Redirigir correctamente al controlador "Animal" y a la acción "Details".
+            return RedirectToAction("Agregar", "Animal");
+        }
+
         public IActionResult Privacy()
         {
             return View();

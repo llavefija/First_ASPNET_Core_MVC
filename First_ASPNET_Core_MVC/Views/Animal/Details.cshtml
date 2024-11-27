@@ -1,0 +1,84 @@
+﻿@using First_ASPNET_Core_MVC.Models.ViewModels;
+@model DetailsAnimalViewModel;
+
+<div class="container my-4">
+    <h1 class="text-center mb-4 text-uppercase font-weight-bold text-primary">@Model.animal.NombreAnimal</h1>
+
+    <div class="card shadow-lg p-4">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p><strong>ID del animal:</strong> <span class="text-muted">@Model.animal.IdAnimal</span></p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Nombre:</strong> <span class="text-muted">@Model.animal.NombreAnimal</span></p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p><strong>Raza:</strong> <span class="text-muted">@Model.animal.Raza</span></p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Fecha de nacimiento:</strong> <span class="text-muted">@(Model.animal.FechaNacimiento?.ToString("dd/MM/yyyy") ?? "Desconocida")</span></p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p><strong>ID del tipo de animal:</strong> <span class="text-muted">@Model.animal.TipoDeAnimal.IdTipoAnimal</span></p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Descripción del tipo:</strong> <span class="text-muted">@Model.animal.TipoDeAnimal.TipoDescripcion</span></p>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="javascript:history.back()" class="btn btn-secondary btn-lg">Volver</a>
+        </div>
+    </div>
+</div>
+
+<!-- Estilo CSS adicional para la presentación -->
+<style>
+    h1 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 700;
+        color: #007bff;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 40px;
+    }
+
+    .card {
+        border-radius: 10px;
+        border: none;
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+        .card p {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+    .text-muted {
+        font-weight: 400;
+        color: #6c757d;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 12px 25px;
+        border-radius: 12px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+</style>

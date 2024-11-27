@@ -1,95 +1,121 @@
 ﻿@using First_ASPNET_Core_MVC.Models.ViewModels
 @model AgregarViewModel
 
+<!-- Título principal de la página -->
 <h1 class="text-center mb-4 text-uppercase text-primary">Agregar Nuevo Animal</h1>
 
+<!-- Contenedor principal con estilos de fondo, márgenes y sombra -->
 <div class="container bg-light p-4 rounded shadow-sm">
-    <form asp-action="Confirmar" asp-controller="Animal" method="post" class="needs-validation" novalidate>
-        <!-- Sección de información básica -->
-        <h4 class="text-secondary mb-3">Información Básica</h4>
-        <div class="form-row">
-            <!-- Campo para el Nombre del Animal -->
-            <div class="form-group col-md-6">
-                <label for="NombreAnimal" class="font-weight-bold">Nombre del Animal</label>
-                <input type="text" class="form-control" id="NombreAnimal" name="NombreAnimal" value="@Model.NombreAnimal" placeholder="Ingrese el nombre del animal" required>
-                <span asp-validation-for="NombreAnimal" class="text-danger"></span>
-            </div>
+	<!-- Formulario que envía los datos mediante POST al método Confirmar del controlador Animal -->
+	<form asp-action="Confirmar" asp-controller="Animal" method="post" class="needs-validation" novalidate>
+		<!-- Sección de información básica -->
+		<h4 class="text-secondary mb-3">Información Básica</h4>
+		<div class="form-row">
+			<!-- Campo de entrada para el Nombre del Animal -->
+			<div class="form-group col-md-6">
+				<label for="NombreAnimal" class="font-weight-bold">Nombre del Animal</label>
+				<input type="text"
+					   class="form-control"
+					   id="NombreAnimal"
+					   name="NombreAnimal"
+					   value="@Model.NombreAnimal"
+					   placeholder="Ingrese el nombre del animal"
+					   required>
+				<!-- Mensaje de validación en caso de error -->
+				<span asp-validation-for="NombreAnimal" class="text-danger"></span>
+			</div>
 
-            <!-- Campo para la Fecha de Nacimiento -->
-            <div class="form-group col-md-6">
-                <label for="FechaNacimiento" class="font-weight-bold">Fecha de Nacimiento</label>
-                <input type="date"
-                       class="form-control"
-                       id="FechaNacimiento"
-                       name="FechaNacimiento"
-                       value="@Model.FechaNacimiento.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString(" yyyy-MM-dd")"
-                       required>
-                <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
-            </div>
+			<!-- Campo de entrada para la Fecha de Nacimiento -->
+			<div class="form-group col-md-6">
+				<label for="FechaNacimiento" class="font-weight-bold">Fecha de Nacimiento</label>
+				<input type="date"
+					   class="form-control"
+					   id="FechaNacimiento"
+					   name="FechaNacimiento"
+					   value="@Model.FechaNacimiento.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString(" yyyy-MM-dd")"
+					   required>
+				<!-- Mensaje de validación en caso de error -->
+				<span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+			</div>
+		</div>
 
+		<!-- Campo de entrada para la Raza del animal -->
+		<div class="form-group">
+			<label for="Raza" class="font-weight-bold">Raza</label>
+			<input type="text"
+				   class="form-control"
+				   id="Raza"
+				   name="Raza"
+				   value="@Model.Raza"
+				   placeholder="Especifique la raza del animal"
+				   required>
+			<!-- Mensaje de validación en caso de error -->
+			<span asp-validation-for="Raza" class="text-danger"></span>
+		</div>
 
-        </div>
+		<!-- Sección para clasificar el tipo de animal -->
+		<h4 class="text-secondary mb-3">Clasificación</h4>
+		<div class="form-group">
+			<!-- Combobox para seleccionar el tipo de animal -->
+			<label for="SelectedTipoAnimalId" class="font-weight-bold">Tipo de Animal</label>
+			<select class="form-control custom-select"
+					id="SelectedTipoAnimalId"
+					name="SelectedTipoAnimalId"
+					required>
+				<!-- Opción por defecto -->
+				<option value="">Seleccione un tipo de animal</option>
+				<!-- Iteración sobre la lista de tipos de animales -->
+				@foreach (var tipo in Model.TiposDeAnimales)
+				{
+					<!-- Marca como seleccionado si coincide con el valor actual -->
+					if (Model.SelectedTipoAnimalId == tipo.IdTipoAnimal)
+					{
+						<option value="@tipo.IdTipoAnimal" selected>@tipo.TipoDescripcion</option>
+					}
+					else
+					{
+						<option value="@tipo.IdTipoAnimal">@tipo.TipoDescripcion</option>
+					}
+				}
+			</select>
+			<!-- Mensaje de validación en caso de error -->
+			<span asp-validation-for="SelectedTipoAnimalId" class="text-danger"></span>
+		</div>
 
-        <!-- Campo para la Raza -->
-        <div class="form-group">
-            <label for="Raza" class="font-weight-bold">Raza</label>
-            <input type="text" class="form-control" id="Raza" name="Raza" value="@Model.Raza" placeholder="Especifique la raza del animal" required>
-            <span asp-validation-for="Raza" class="text-danger"></span>
-        </div>
-
-        <!-- ComboBox para Tipos de Animales -->
-        <h4 class="text-secondary mb-3">Clasificación</h4>
-        <div class="form-group">
-            <label for="SelectedTipoAnimalId" class="font-weight-bold">Tipo de Animal</label>
-            <select class="form-control custom-select" id="SelectedTipoAnimalId" name="SelectedTipoAnimalId" required>
-                <option value="">Seleccione un tipo de animal</option>
-                @foreach (var tipo in Model.TiposDeAnimales)
-                {
-                    if (Model.SelectedTipoAnimalId == tipo.IdTipoAnimal)
-                    {
-                        <option value="@tipo.IdTipoAnimal" selected>@tipo.TipoDescripcion</option>
-                    }
-                    else
-                    {
-                        <option value="@tipo.IdTipoAnimal">@tipo.TipoDescripcion</option>
-                    }
-                }
-            </select>
-            <span asp-validation-for="SelectedTipoAnimalId" class="text-danger"></span>
-        </div>
-
-        <!-- Botón de envío -->
-        <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Agregar Animal</button>
-    </form>
+		<!-- Botón para enviar el formulario -->
+		<button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Agregar Animal</button>
+	</form>
 </div>
 
-<!-- Estilo adicional -->
+<!-- Estilos adicionales para mejorar la presentación -->
 <style>
-    h1 {
-        font-size: 2.5rem;
-        font-weight: bold;
-    }
 
-    .container {
-        max-width: 700px;
-        margin-top: 30px;
-    }
+	h1 {
+		font-size: 2.5rem;
+		font-weight: bold;
+	}
 
-    .form-group label {
-        color: #333;
-    }
+	.container {
+		max-width: 700px;
+		margin-top: 30px;
+	}
 
-    .btn {
-        background: linear-gradient(90deg, #007bff, #0056b3);
-        border: none;
-    }
+	.form-group label {
+		color: #333;
+	}
 
-        .btn:hover {
-            background: linear-gradient(90deg, #0056b3, #003f7f);
-        }
+	.btn {
+		background: linear-gradient(90deg, #007bff, #0056b3);
+		border: none;
+	}
 
-    .custom-select {
-        font-size: 1rem;
-        padding: 10px;
-    }
+		.btn:hover {
+			background: linear-gradient(90deg, #0056b3, #003f7f);
+		}
+
+	.custom-select {
+		font-size: 1rem;
+		padding: 10px;
+	}
+
 </style>
